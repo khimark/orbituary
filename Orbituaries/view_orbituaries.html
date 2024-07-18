@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ meta_keywords }}">
+
+    <meta property="og:title" content="{{ meta_title }}">
+    <meta property="og:description" content="{{ meta_description }}">
+    <meta property="og:image" content="{% media 'obituary_image.jpg' %}">
+    <meta property="og:url" content="{% url 'view_obituary' obituary.id %}">
+    <meta property="og:site_name" content="Obituary Platform">
+
+    <link rel="canonical" href="{% url 'view_obituary' obituary.id %}">
+
+    <title>View Obituaries</title>
+    <link rel="stylesheet" href="view_orbituaries.css"> <!-- link to external CSS file -->
+</head>
+
+<body>
+    <h1>Obituaries</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Date of Death</th>
+            <th>Content</th>
+            <th>Author</th>
+        </tr>
+        {% for obituary in page_obj %}
+        <tr>
+            <td>{{ obituary.0 }}</td>
+            <td>{{ obituary.1 }}</td>
+            <td>{{ obituary.2 }}</td>
+            <td>{{ obituary.3 }}</td>
+            <td>{{ obituary.4 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if num == page_obj.number %}
+        <span>{{ num }}</span>
+        {% else %}
+        <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+
+    <div itemscope itemtype="http://schema.org/Obituary">
+        <h1 itemprop="name">{{ obituary.name }}</h1>
+        <p itemprop="description">View the obituary of {{ obituary.name }}, who passed away on {{ obituary.dod }}.</p>
+        <p itemprop="datePublished">{{ obituary.dod }}</p>
+        <p itemprop="author">{{ obituary.author }}</p>
+        <div itemprop="content">
+            {{ obituary.content|linebreaks }}
+        </div>
+
+        <div class="social-sharing">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'view_obituary' obituary.id %}"
+                target="_blank">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="https://twitter.com/share?url={% url 'view_obituary' obituary.id %}&text={{ meta_title }}"
+                target="_blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?url={% url 'view_obituary' obituary.id %}&title={{ meta_title }}"
+                target="_blank">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

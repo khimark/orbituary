@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Obituary Form</title>
+	<link rel="stylesheet" href="orbituary_form.css">
+</head>
+<body>
+	<h1>Submit an Obituary</h1>
+	<form id="obituary_form" method="post" action="submit_obituary">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" required><br><br>
+		
+		<label for="dob">Date of Birth:</label>
+		<input type="date" id="dob" name="dob" required><br><br>
+		
+		<label for="dod">Date of Death:</label>
+		<input type="date" id="dod" name="dod" required><br><br>
+		
+		<label for="content">Content:</label>
+		<textarea id="content" name="content" required></textarea><br><br>
+		
+		<label for="author">Author:</label>
+		<input type="text" id="author" name="author" required><br><br>
+		
+		<input type="submit" value="Submit Obituary">
+	</form>
+	
+	<script src="orbituary_form.js"></script>
+</body>
+</html>
